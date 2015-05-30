@@ -1,0 +1,149 @@
+
+
+<MySlide@Slider>:
+    bar_color: (0,0,0,0)
+    canvas.before:
+
+        Rectangle:
+            source: 'colorbar.png'
+            pos: self.x, self.y
+            size: self.width, self.height/2
+    Label:
+        id: score_label
+        pos: (root.value_pos[0] - sp(16), root.center_y + sp(10)) if root.orientation == 'horizontal' else (root.center_x - sp(27), root.value_pos[1] - sp(16))
+        size_hint: None, None
+        size: sp(32), sp(32)
+        text: str(int(root.value))
+        font_size: 15
+
+        color: [146.0/255, 238.0/255, 138.0/255, 255.0/255]
+    #on_touch_up: score_label.color =
+<RootHome>:
+    do_default_tab: False
+
+# # # # #D#R#_#F#:# #'#'#
+# # # # #D#R#R#_#F#:# #'#'#
+# # # # #D#R#I#S#_#F#:# #0#
+# # # # #D#R#I#S#R#_#F#:# #'#'
+
+    TabbedPanelItem:
+        text: 'Functionality'
+        font_size: 11
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30,0,30,10
+            Label:
+                text: 'Motor Mount Repair'
+                font_size: 15
+                color: (0,1,1,1)
+                size_hint_y: .1
+            Label:
+                text: 'Functionality'
+                font_size: 30
+                color: (.4,.6,1,1)
+                italic: True
+                size_hint_y: .1
+
+
+            GridLayout:
+                cols: 2
+                spacing: 30
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: 'Design Requirement'
+                        size_hint_y: None
+                        height: '35dp'
+
+                    ScrollView:
+                        id: sv
+                        TextInput:
+                            id: DR_F
+                            size_hint_y: None
+                            height: max(self.minimum_height, sv.height)
+                            multiline: True
+                            focus: True
+                BoxLayout:
+                    orientation: 'vertical'
+                    Label:
+                        text: 'Design Requirement Rationale'
+                        size_hint_y: None
+                        height: '35dp'
+                    ScrollView:
+                        id: sv2
+                        height: '50dp'
+                        TextInput:
+                            id: DRR_F
+                            size_hint_y: None
+                            height: max(self.minimum_height, sv2.height)
+                            multiline: True
+
+                Label:
+                    size_hint_y: .3
+                    markup: True
+                    text: 'Design Requirement [ref=some]Importance Score[/ref]'
+                    on_ref_press:
+                        import webbrowser
+                        webbrowser.open('http://google.com')
+                MySlide:
+                    id: DRIS_F
+                    size_hint_y: None
+                    height: '10dp'
+                    min: 1
+                    max: 4
+                    step: 1
+
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: (120,0)
+
+                Label:
+                    text:'Design Requirement Importance Score Rationale'
+                    size_hint_y: None
+                    height: '35dp'
+
+                TextInput:
+                    id: DRISR_F
+                    size_hint_y: None
+                    height: '100dp'
+                    multiline: True
+                    size: self.size
+                Button:
+                    id: spit
+                    text: 'spit'
+                    on_press: spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
+                Label:
+                    id: spit_label
+                    text: 'status'
+
+
+
+
+
+    TabbedPanelItem:
+        text: 'Operational \nEnvironment'
+        font_size: 11
+        BoxLayout:
+
+    TabbedPanelItem:
+        text: 'Health, Safety, \nand Environment'
+        font_size: 11
+        BoxLayout:
+
+    TabbedPanelItem:
+        text: 'Manageability'
+        font_size: 11
+        BoxLayout:
+
+    TabbedPanelItem:
+        text: 'Security'
+        font_size: 11
+        BoxLayout:
+
+    TabbedPanelItem:
+        text: 'Interfacing \nSystems'
+        font_size: 11
+        BoxLayout:
+
