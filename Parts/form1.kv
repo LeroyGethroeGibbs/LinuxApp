@@ -1,3 +1,5 @@
+#: import ListItemButton kivy.uix.listview.ListItemButton
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
 
 
 <MySlide@Slider>:
@@ -18,132 +20,290 @@
 
         color: [146.0/255, 238.0/255, 138.0/255, 255.0/255]
     #on_touch_up: score_label.color =
-<RootHome>:
-    do_default_tab: False
 
+<OpenExistingProject>:
+    canvas:
+        Rectangle:
+            source:
+
+<TabbedPanelTemplate@TabbedPanelItem>:
+    title_label: 'Funct'
+    text: 'Functionality'
+    id: yes
+    font_size: 11
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30,0,30,10
+        Label:
+            text: 'Motor Mount Repair'
+            #font_size: 15
+            color: (0,1,1,1)
+            size_hint_y: .1
+        Label:
+            id: title_label_category
+            text: root.title_label
+            font_size: 30
+            color: (.4,.6,1,1)
+            italic: True
+            size_hint_y: .15
+
+        GridLayout:
+            cols: 2
+            spacing: 30
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    text: 'Design Requirement'
+                    size_hint_y: None
+                    height: '35dp'
+
+                ScrollView:
+                    id: sv
+                    TextInput:
+                        id: DR_F
+                        size_hint_y: None
+                        height: max(self.minimum_height, sv.height)
+                        multiline: True
+                        focus: True
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: 'Design Requirement Rationale'
+                    size_hint_y: None
+                    height: '35dp'
+                ScrollView:
+                    id: sv2
+                    height: '50dp'
+                    TextInput:
+                        id: DRR_F
+                        size_hint_y: None
+                        height: max(self.minimum_height, sv2.height)
+                        multiline: True
+
+            Label:
+                size_hint_y: .3
+                markup: True
+                text: 'Design Requirement [ref=some]Importance Score[/ref]'
+                on_ref_press:
+                    import webbrowser
+                    webbrowser.open('http://google.com')
+            MySlide:
+                id: DRIS_F
+                size_hint_y: None
+                height: '10dp'
+                min: 1
+                max: 4
+                step: 1
+
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: (120,0)
+
+            Label:
+                text:'Design Requirement Importance Score Rationale'
+                size_hint_y: None
+                height: '35dp'
+
+            TextInput:
+                id: DRISR_F
+                size_hint_y: None
+                height: '100dp'
+                multiline: True
+                size: self.size
+            Button:
+                #on_press: dropdown.open
+                on_press: app.root.show_new_project_form()
+            Button:
+                id: spit
+                text: 'spit'
+                on_press: yes.color= [0,1,0,1]
+                #spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
+            Label:
+                id: spit_label
+                text: 'status'
+
+<RootHome>:
+
+
+#    GridLayout:
+#        cols: 2
+#        Button:
+#            id: eventpractice
+#            text: 'Define Design\n Requirements'
+#           # on_press: MyEventDispatcher.do_something('potato')
+#        Button:
+#        Button:
+#        ToggleButton:
+#        BubbleButton:
+#        Bubble:
+    #Words
+
+    #DefineDesignRequirements
+    LoginPage
+
+
+
+#<MyListItemButton@ListItemButton>:
+#    Canvas:
+#        Color:
+#            (0,.8,.6,1)
+
+
+
+
+
+
+<Words@RstDocument>:
+    text: "Welcome\n--------------------------------\nThis introduction will explain why stuff happens with things"
+
+<DefineDesignRequirements>:
+    do_default_tab: False
 # # # # #D#R#_#F#:# #'#'#
 # # # # #D#R#R#_#F#:# #'#'#
 # # # # #D#R#I#S#_#F#:# #0#
 # # # # #D#R#I#S#R#_#F#:# #'#'
+    TabbedPanelTemplate:
+        title_label: 'Functionality'
 
-    TabbedPanelItem:
-        text: 'Functionality'
-        font_size: 11
-        BoxLayout:
-            orientation: 'vertical'
-            padding: 30,0,30,10
-            Label:
-                text: 'Motor Mount Repair'
-                font_size: 15
-                color: (0,1,1,1)
-                size_hint_y: .1
-            Label:
-                text: 'Functionality'
-                font_size: 30
-                color: (.4,.6,1,1)
-                italic: True
-                size_hint_y: .1
+    TabbedPanelTemplate:
 
-
-            GridLayout:
-                cols: 2
-                spacing: 30
-                BoxLayout:
-                    orientation: 'vertical'
-
-                    Label:
-                        text: 'Design Requirement'
-                        size_hint_y: None
-                        height: '35dp'
-
-                    ScrollView:
-                        id: sv
-                        TextInput:
-                            id: DR_F
-                            size_hint_y: None
-                            height: max(self.minimum_height, sv.height)
-                            multiline: True
-                            focus: True
-                BoxLayout:
-                    orientation: 'vertical'
-                    Label:
-                        text: 'Design Requirement Rationale'
-                        size_hint_y: None
-                        height: '35dp'
-                    ScrollView:
-                        id: sv2
-                        height: '50dp'
-                        TextInput:
-                            id: DRR_F
-                            size_hint_y: None
-                            height: max(self.minimum_height, sv2.height)
-                            multiline: True
-
-                Label:
-                    size_hint_y: .3
-                    markup: True
-                    text: 'Design Requirement [ref=some]Importance Score[/ref]'
-                    on_ref_press:
-                        import webbrowser
-                        webbrowser.open('http://google.com')
-                MySlide:
-                    id: DRIS_F
-                    size_hint_y: None
-                    height: '10dp'
-                    min: 1
-                    max: 4
-                    step: 1
-
-
-            BoxLayout:
-                orientation: 'vertical'
-                padding: (120,0)
-
-                Label:
-                    text:'Design Requirement Importance Score Rationale'
-                    size_hint_y: None
-                    height: '35dp'
-
-                TextInput:
-                    id: DRISR_F
-                    size_hint_y: None
-                    height: '100dp'
-                    multiline: True
-                    size: self.size
-                Button:
-                    id: spit
-                    text: 'spit'
-                    on_press: spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
-                Label:
-                    id: spit_label
-                    text: 'status'
-
-
-
-
-
-    TabbedPanelItem:
         text: 'Operational \nEnvironment'
-        font_size: 11
-        BoxLayout:
 
-    TabbedPanelItem:
+#            canvas:
+#
+#                Rectangle:
+#                    source: 'checks.png'
+#                    size: self.width * (1.0/5), self.height *(1.0/3)
+#                    pos: self.pos
+
+        title_label: self.text
+
+    TabbedPanelTemplate:
         text: 'Health, Safety, \nand Environment'
-        font_size: 11
-        BoxLayout:
+        title_label: self.text
 
-    TabbedPanelItem:
+    TabbedPanelTemplate:
         text: 'Manageability'
-        font_size: 11
-        BoxLayout:
+        title_label: self.text
 
-    TabbedPanelItem:
+    TabbedPanelTemplate:
         text: 'Security'
-        font_size: 11
-        BoxLayout:
+        title_label: self.text
 
-    TabbedPanelItem:
+    TabbedPanelTemplate:
         text: 'Interfacing \nSystems'
-        font_size: 11
-        BoxLayout:
+        title_label: self.text
+
+
+
+
+
+<LoginPage>:
+    un_input: un_input
+##@ AnchorLayout
+    GridLayout:
+        id: glay
+        size_hint: .5,.2
+        spacing: '10dp'
+        cols:2
+        Label:
+            text: 'Username'
+            id: un_label
+            size: un_input.size
+        TextInput:
+            id: un_input
+            multiline: False
+            on_size: un_label.size = self.size
+            on_text:root.check_upper()
+        Label:
+            text: 'Password'
+            id: pw_label
+            size: pw_input.size
+        TextInput:
+            id: pw_input
+            password: True
+            multiline: False
+            on_size: pw_label.size = self.size
+        Button:
+            id: loginbutton
+            text: "Enter the DBA Tool !"
+            #on_press: self.text = check_password(un_input.text, pw_input.text)
+            on_press: root.login_set_global()
+                     # app.root.show_general_menu()
+            #LoginPage.login_callback()
+            #self.text = check_password(un_input.text, pw_input.text)
+        Label:
+            id: statuslogin
+<MainView>:
+    width: 800
+#:import check_password functionfile.check_password
+#: import Form1 Form1
+#: import runTouchApp kivy.base.runTouchApp
+
+<NewProjectForm>:
+    title: 'sdf'
+    text: 'sdfsdfsdf'
+    id: newprojectform_id
+    orientation: 'vertical'
+    Label:
+        text: 'New Project Form'
+    Button:
+        text: ' I am ready to define \nDesign Requirements !'
+        on_press: app.root.show_define_design_requirements()
+    Label:
+        text: 'You have not'
+#    CustomDropDown:
+#        id: dropdown
+#        Button:
+#            size_hint_y: None
+#            height: 4
+#            text: 'MainButton'
+#            on_release: dropdown.open
+#        Label:
+#            size_hint_y: None
+#            height: 4
+#            text: 'option1'
+#        Label:
+#            size_hint_y: None
+#            height: 4
+#            text: 'option2'
+
+<CustomDropDown@DropDown>:
+    Button:
+        text: 'My first Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item1')
+    Label:
+        text: 'Unselectable item'
+        size_hint_y: None
+        height: 44
+    Button:
+        text: 'My second Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item2')
+
+<GeneralMenu@BoxLayout>:
+    size_hint: .85, .85
+    orientation: 'vertical'
+    Words:
+        size_hint_y: .95
+
+    GridLayout:
+        size_hint: 1,.5
+        cols: 2
+        Button:
+
+            text: "Create New Project"
+            on_press: app.root.show_new_project_form()
+
+        Button:
+
+            text: "Open Existing Project"
+           # on_press: MainView()
+
+    MainView:
 
