@@ -22,10 +22,8 @@
     #on_touch_up: score_label.color =
 
 <OpenExistingProject>:
-    canvas:
-        Rectangle:
-            source:
-
+#: import ViewProjectFormTemplate Form1.ViewProjectFormTemplate
+#: import JsonStore kivy.storage.jsonstore.JsonStore
 <TabbedPanelTemplate@TabbedPanelItem>:
     title_label: 'Funct'
     text: 'Functionality'
@@ -114,51 +112,264 @@
                 size: self.size
             Button:
                 #on_press: dropdown.open
-                on_press: app.root.show_new_project_form()
+
+                on_press: app.root.store_stuff()
+                #on_press: app.root.show_new_project_form()
             Button:
                 id: spit
                 text: 'spit'
-                on_press: yes.color= [0,1,0,1]
+                on_press: yes.color= [0,1,0,1]; ViewProjectFormTemplate().show_screenthree()
                 #spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
             Label:
                 id: spit_label
                 text: 'status'
+#:import DefineProposedDesignSolution Form1.DefineProposedDesignSolution
+<DesignSolutionTemplate>:
+
+    title_label: 'Title Label'
+    text: 'Functionality'
+    id: yes
+    font_size: 11
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: 'Step 1 – Translating Needs into Design Requirements'
+            color: .6,.5,.6,1
+            font_size: 11
+            size_hint_y: .1
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30,5,30,10
+            size_hint_y: 2
+    ## ## ## ## Step 1 – Translating Needs into Design Requirements ## ## ## ##
+            BoxLayout:
+                size_hint_y: 2
+                orientation: 'vertical'
+                spacing: 10,5
+                padding: 2,2,2,2
+                canvas.before:
+                    Color:
+                        rgba: .5,.4,.6,.7   # purple box
+                    Rectangle:
+                        id: purpleborder
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 15,0,15,15
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1   #black inital canvas for base
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    canvas:
+                        Color:
+                            rgba: 0,0,0,.8
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+
+                    Label:
+                        text: 'Design Requirement Compliance Basis'
+                        markup: True
+                        size_hint_y: .5
+                    TextInput:
+                        font_size: 12
+                        id: DR_F
+                        multiline: True
+                        focus: True
+                        size_hint_x: .60
+                        pos_hint:  {'center_x': .5, 'center_y': .5}
+
+
+                    GridLayout:
+                        cols: 2
+                        spacing: 25,0
+                        Label:
+                            text: 'Possible Design \nSolution Advantages'
+                            halign: 'center'
+
+                        Label:
+                            markup: True
+                            text: 'Possible Design\n Solution Constraints'
+                            halign: 'center'
+
+                        TextInput:
+                            id: DRR_F
+                            multiline: True
+                            font_size: 12
+
+                        TextInput:
+                            id: DRR_F
+                            multiline: True
+                            font_size: 12
+## ## ## ## Step 2 – Prioritizing Design Requirements ## ## ## ##
+
+##          ##          ##          ##          ##          ##
+        Label:
+            text: 'Step 2 – Prioritizing Design Requirements'
+            color: .6,.5,.6,1
+            font_size: 11
+            size_hint_y: .1
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30,5,30,10
+            size_hint_y: 1.5
+
+            BoxLayout:
+                size_hint_y: 2
+                orientation: 'vertical'
+                spacing: 10,5
+                padding: 2,2,2,2
+                canvas.before:
+                    Color:
+                        rgba: .5,.4,.6,.7   # purple box
+                    Rectangle:
+                        id: purpleborder
+                        pos: self.pos
+                        size: self.size
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 15,0,15,15
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1   #black inital canvas for base
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    canvas:
+                        Color:
+                            rgba: 0,0,0,.8
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    GridLayout:
+                        cols: 2
+                        Label:
+                            markup: True
+                            text: 'Possible Design\n Solution Compliance Score'
+
+                        MyCheckBox:
+                        Label:
+                            text:'Possible Design Solution Value'
+                        MyCheckBox:
+        BoxLayout:
+            size_hint_y: .3
+            spacing: 20
+            padding: 5,0,25,5
+            Button:
+                size_hint_y: 1.2
+                Label:
+                    text: ''
+            BoxLayout:
+                Button:
+
+                    text: 'Save'
+
+                Button:
+
+                    text: 'Submit All'
+
+#            Button:
+#                on_press: app.root.show_new_project_form()
+#            Button:
+#                id: spit
+#                text: 'spit'
+#                on_press: yes.color= [0,1,0,1]
+#                #spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
+#            Label:
+#                id: spit_label
+#                text: 'status'
+<MyCheckBox>:
+    cols: 4
+
+    Label:
+        text: '4'
+
+    Label:
+        text: '3'
+
+    Label:
+        text: '2'
+    Label:
+        text: '1'
+    CheckBox:
+
+    CheckBox:
+    CheckBox:
+
+    CheckBox:
+
 
 <RootHome>:
 
+        #DefineDesignRequirements
+    LoginPage:
+    #ViewProjectFormTemplate
+#
+#
 
-#    GridLayout:
-#        cols: 2
-#        Button:
-#            id: eventpractice
-#            text: 'Define Design\n Requirements'
-#           # on_press: MyEventDispatcher.do_something('potato')
-#        Button:
-#        Button:
-#        ToggleButton:
-#        BubbleButton:
-#        Bubble:
-    #Words
-
-    #DefineDesignRequirements
-    LoginPage
-
-
-
-#<MyListItemButton@ListItemButton>:
-#    Canvas:
-#        Color:
-#            (0,.8,.6,1)
-
-
-
-
-
+#:import DesignSolutionHelpContent Form1.DesignSolutionHelpContent
 
 <Words@RstDocument>:
     text: "Welcome\n--------------------------------\nThis introduction will explain why stuff happens with things"
 
-<DefineDesignRequirements>:
+
+
+<DesignSolutionHelpContent>:
+    size_hint_x: .3
+    RstDocument:
+        source: 'rst/designsolution_helpcontent.rst'
+<DefineProposedDesignSolution>:
+    do_default_tab: False
+
+    DesignSolutionTemplate:
+        title_label: 'Functionality'
+        title_label: self.text
+        id: tab1
+    DesignSolutionTemplate:
+        id: tab2
+        text: 'Operational \nEnvironment'
+    DesignSolutionTemplate:
+        id: tab3
+        text: 'Health, Safety, \nand Environment'
+    DesignSolutionTemplate:
+        text: 'Manageability'
+    DesignSolutionTemplate:
+        text: 'Security'
+    DesignSolutionTemplate:
+        text: 'Interfacing \nSystems'
+
+    TabbedPanelItem:
+        text: 'Form 3'
+        GridLayout:
+            cols: 2
+            Label:
+                text: 'PDS RP'
+            MySlide:
+            Label:
+                text: 'Rationale for Required Proficiency Level'
+            TextInput:
+            Label:
+                text: 'PDS RP&E'
+            MySlide:
+            Label:
+                text: 'Rationale for Required Planning and Execution Level'
+            TextInput:
+            Label:
+                text: 'PDS RI'
+            MySlide:
+            Label:
+                text: 'Rationale for Required Innovation'
+            TextInput:
+
+
+<DesignRequirementsHelpContent>:     #Step 1 – Translating Needs into Design Requirements
+<DefineDesignRequirements>:             #Step 2 – Prioritizing Design Requirements
     do_default_tab: False
 # # # # #D#R#_#F#:# #'#'#
 # # # # #D#R#R#_#F#:# #'#'#
@@ -197,11 +408,16 @@
         title_label: self.text
 
 
-
-
-
 <LoginPage>:
     un_input: un_input
+    pw_input: pw_input
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            source:'rst/ocean.jpg'
+            size: self.size
+            pos: self.pos
 ##@ AnchorLayout
     GridLayout:
         id: glay
@@ -215,6 +431,11 @@
         TextInput:
             id: un_input
             multiline: False
+            focus: True
+            focus: root.on_focus
+           # on_text_validate: root.ids.un_label.text = ' in the books'
+            on_text_validate: root.on_text_validate()
+            #on_text_validate: root.on_enter
             on_size: un_label.size = self.size
             on_text:root.check_upper()
         Label:
@@ -238,37 +459,223 @@
             id: statuslogin
 <MainView>:
     width: 800
-#:import check_password functionfile.check_password
+
 #: import Form1 Form1
 #: import runTouchApp kivy.base.runTouchApp
 
+#:import datetime datetime
+#:import time time
+
 <NewProjectForm>:
-    title: 'sdf'
-    text: 'sdfsdfsdf'
-    id: newprojectform_id
-    orientation: 'vertical'
-    Label:
-        text: 'New Project Form'
-    Button:
-        text: ' I am ready to define \nDesign Requirements !'
-        on_press: app.root.show_define_design_requirements()
-    Label:
-        text: 'You have not'
-#    CustomDropDown:
-#        id: dropdown
-#        Button:
-#            size_hint_y: None
-#            height: 4
-#            text: 'MainButton'
-#            on_release: dropdown.open
-#        Label:
-#            size_hint_y: None
-#            height: 4
-#            text: 'option1'
-#        Label:
-#            size_hint_y: None
-#            height: 4
-#            text: 'option2'
+    BoxLayout:
+        padding: 10,0,0,10
+        orientation: 'vertical'
+        id: newprojectform_id
+        canvas.before:
+            Color:
+                rgba: 1,1,1,.5
+            Rectangle:
+                source:'rst/galaxy.jpg'
+                pos: self.pos
+                size: self.size
+        Label:
+            font_name: 'FreeMono'
+            text: 'New Project Form'
+            font_size: 15
+            color: (0,.5,.9,1)
+            size_hint_y: .2
+
+
+        BoxLayout:
+            size_hint: .8,.7
+            pos: self.pos
+            canvas:
+                Color:
+                    rgba: .5,.4,.6,.7
+
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            orientation: 'vertical'
+
+            GridLayout:
+                cols: 2
+                size_hint: .8, .8
+                padding: 0,10
+                spacing: 5
+                Label:
+                    text: 'Project Title'
+                    id: _newprojectlabel
+                TextInput:
+                    id: _newprojectid
+                    multiline: False
+                    text: 'Motor Mount Repair'
+                    color: [0,0,0,.5]
+                    on_text: root.ids._newprojectlabel.text = self.text
+                    on_text_validate: root.check_user_exists(self.text); root.ids._projectcreationtime.text = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+
+                Label:
+                    text: 'Project ID Number'
+                TextInput:
+                    id: _projectidnumber
+                    multiline: False
+                    active: False
+                Button:
+                    on_press: root.project_set_global()
+                Label:
+                    id: _projectcreationtime
+                    text: 'Today'
+                Button:
+                    text: ' I am ready to define \nDesign Requirements !'
+                    on_press: app.root.show_define_design_requirements()
+
+
+#: import Accordion kivy.uix.accordion.Accordion
+#: import AccordionItem kivy.uix.accordion.AccordionItem
+#
+[AccordionItemTitle@Label]:
+    text: ctx.title
+    canvas.before:
+        Color:
+            rgb: 1, 0, 1
+        BorderImage:
+            source:
+                ctx.item.background_normal \
+                if ctx.item.collapse \
+                else ctx.item.background_selected
+            pos: self.pos
+            size: self.size
+        PushMatrix
+        Translate:
+            xy: self.center_x, self.center_y
+        Rotate:
+            angle: 90 if ctx.item.orientation == 'horizontal' else 0
+            axis: 0, 0, 1
+        Translate:
+            xy: -self.center_x, -self.center_y
+    canvas.after:
+        PopMatrix
+
+
+<ViewProjectFormTemplate>:
+    min_space: 25
+
+    AccordionItem:
+        title: 'Project Overview'
+
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'dfgdfg'
+                size_hint: .1,.1
+#: import Knob kivy.garden.knob
+#: import ModernMenu kivy.garden.modernmenu
+    AccordionItem:
+        title: 'Design Requirements Summary'
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: .7,.2,.9,.8
+
+
+
+#: import DesignSolutionHelpContent Form1.DesignSolutionHelpContent
+#: import Popup kivy.uix.popup.Popup
+        ## ## Template for additional accordion item for design alternatives/solutions
+#: import Poppy Form1.Poppy
+     # on initial open of tab, ask to change title blah blah in popup. om exit. new accordion
+#        title: 'Proposed Design Solution # 1'
+#        on_collapse: Poppy().open()
+    AccordionItem:
+        id: _newsolution
+        title: 'Create New Proposed Design Solution'
+        canvas:
+            Color:
+                rgba: 1,.3,.2,.2
+
+            Rectangle:
+                size: self.x/2, self.y
+                pos: (0,0)
+        padding: 20,0,0,0
+        BoxLayout:
+            DesignSolutionHelpContent:
+            DefineProposedDesignSolution:
+
+
+    AccordionItem:
+
+        title: 'Radar Chart'
+
+
+        BoxLayout:
+            size_hint: .9,.95
+            pos_hint:  {'center_x': .5, 'center_y': .5}
+            orientation: 'vertical'
+            Label:
+                size_hint_y: .2
+                valign: 'top'
+                text: 'Visualizing Design Solutions'
+
+            Label:
+                size_hint_y: .05
+                color: [1,.6,.6,1]
+                text: '[ref=some]What is a Radar Chart ? [/ref]'
+                markup: True
+                on_ref_press:
+                    import webbrowser
+                    webbrowser.open('http://en.wikipedia.org/wiki/Radar_chart')
+
+
+    AccordionItem:
+        id: _accitem_designrequire
+        title: 'Design Requirements'
+        ScreenManager:
+            id: _sm
+            Screen:
+                id: _screenone
+                Label:
+                    text: 'You need to define the design requirements'
+                Button:
+                    text: 'Define Now'
+                    on_press: _sm.current = 'screentwo'
+            Screen:
+                id: _screentwo
+                name: 'screentwo'
+                DefineDesignRequirements
+                Button:
+                    size_hint_y: .05
+                    text: 'Submit All'
+                    on_press: _sm.current = 'screenthree'
+
+            Screen:
+                name: 'screenthree'
+                BoxLayout:
+                    Label:
+                        text: 'Here are Design requirement summary \nresults from user input'
+                    Image:
+                        source: 'example_radar.png'
+                        #if all green then proceed
+                    Button:
+                        text: 'Edit Design\n Requirements'
+
+
+#: import Menubar kivy.garden.menubar
+<ProjectSolutionForm>:
+
+<Poppy>:
+    size_hint: .3,.2
+    auto_dismiss: False
+    title: 'Please enter a name for \nyour new design solution !'
+    TextInput:
+        text:''
+        id: popupinput
+        multiline: False
+        on_text_validate: root.on_text_validate()
+#:import rt Form1.RootHome
+<ViewProject>:
+    ViewProjectFormTemplate
+
 
 <CustomDropDown@DropDown>:
     Button:
@@ -303,7 +710,38 @@
         Button:
 
             text: "Open Existing Project"
-           # on_press: MainView()
+            on_press: app.root.show_project_view()
 
     MainView:
 
+
+<AB@ActionBar>:
+    pos_hint: {'top':1}
+    ActionView:
+
+        use_separator: True
+        ActionPrevious:
+            title: 'Action Bar'
+            with_previous: False
+        ActionOverflow:
+        ActionButton:
+            text: 'Btn0'
+            icon: 'atlas://data/images/defaulttheme/audio-volume-high'
+        ActionButton:
+            text: 'Btn1'
+            on_press: MyPageLayout
+        ActionButton:
+            text: 'Main Menu'
+            on_press: root.current = 'MenuScreen'
+        ActionButton:
+            text: 'Btn3'
+        ActionGroup:
+            text: 'Current Project'
+            mode: 'spinner'
+            ActionButton:
+                text: 'New Alternative'
+            ActionButton:
+                text: 'Modify Alternatives'
+            ActionButton:
+                text: 'View Report'
+                on_press: app.root.show_report()
