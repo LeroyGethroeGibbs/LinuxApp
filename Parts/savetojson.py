@@ -15,7 +15,6 @@ print p
 # Write CSV Header
 # f.writerow(["pk", "model", "codename", "name", "content_type"])
 
-# Make csv function
 def make_csv(project):
     # define & clear lists for each project number
     list = []
@@ -113,7 +112,6 @@ def make_csv(project):
     return list, profilelist, contentlist
 
 import wx
-import wx.grid as gridlib
 
 class Frame(wx.Frame):
     # ----------------------------------------------------------------------
@@ -153,12 +151,12 @@ class Frame(wx.Frame):
         self.grid.SetCellValue(4,2,'2')
         self.grid.SetCellValue(5,2,'3')
 
-        self.grid.SetCellValue(0,3,'')
-        self.grid.SetCellValue(1,3,'')
-        self.grid.SetCellValue(2,3,'')
-        self.grid.SetCellValue(3,3,'')
-        self.grid.SetCellValue(4,3,'')
-        self.grid.SetCellValue(5,3,'')
+        self.grid.SetCellValue(0,3,'System will have to be shutdown if alarms sound. Alarms will sound if Reliability  if exhaust leak develops')
+        self.grid.SetCellValue(1,3,'Current condition is not severe. However, care should be taken not to introduce new impacts with design modification')
+        self.grid.SetCellValue(2,3,'Leak results in unacceptable condition for continued operation due to potentially toxic workplace environemtn. Likelhood is estimated to be > 1 year w present design. RM&C Evaluator importance is high. ')
+        self.grid.SetCellValue(3,3,'Genset is required to be in constant operation. Therefore a maximum outage period of < 1hour is required; & corrective maintenance action with impeded access could be extended to > 1 day')
+        self.grid.SetCellValue(4,3,'Current condition is not severe. However, care should be taken not to introduce new impacts with design modification')
+        self.grid.SetCellValue(5,3,'Function of genset is likely to be negatively impacted if DS does not assure no additional backpressure in genset exhaust manifold')
 
 
         self.grid.SetColLabelValue(0,'Design \nRequirement')
@@ -224,21 +222,12 @@ class Frame(wx.Frame):
 
     def on_edit( self, event):
         row = event.GetRow()
-
         col= event.GetCol()
-        print col
-        print '\n\n'
         size = self.dc.GetTextExtent(self.grid.GetCellValue(row, col))
 
         text = self.grid.GetCellValue(row, col)
         text2 = wordwrap.wordwrap(text, self.grid.GetRowSize(row), self.dc, breakLongWords = False)
         w, h, lineHeight = max(self.dc.GetMultiLineTextExtent(text2), [80,20,10])
-        print w
-        print h
-        print lineHeight
-        print size
-        print self.grid.GetRowLabelSize()
-        print 'centebury'
         coll=[]
         roww=[]
         for i in range(0,5):
@@ -256,13 +245,13 @@ class Frame(wx.Frame):
         #if size[0]  > self.grid.GetColSize(col):
         w = max(size[0], self.grid.GetColSize(col), self.grid.GetColLabelSize())
         self.grid.SetColSize(col, w)
-        w = min(size[0], self.grid.GetColSize(col), self.grid.GetColLabelSize())
+       # w = min(size[0], self.grid.GetColSize(col), self.grid.GetColLabelSize())
         self.grid.SetColLabelSize(w)
 
         #if size[1] < self.grid.GetRowSize(col):
         h = max(h, self.grid.GetRowSize(row))
         self.grid.SetRowSize(row, h)
-        h = min(h, self.grid.GetRowSize(row))
+       # h = min(h, self.grid.GetRowSize(row))
         self.grid.SetRowLabelSize(h)
 
         self.panel.Layout()

@@ -1,0 +1,33 @@
+#:import check_password functionfile.check_password
+
+<LoginPage>:
+##@ AnchorLayout
+    GridLayout:
+        id: glay
+        size_hint: .5,.2
+        spacing: '10dp'
+        cols:2
+        Label:
+            text: 'Username'
+            id: un_label
+            size: un_input.size
+        TextInput:
+            id: un_input
+            multiline: False
+            on_size: un_label.size = self.size
+        Label:
+            text: 'Password'
+            id: pw_label
+            size: pw_input.size
+        TextInput:
+            id: pw_input
+            password: True
+            multiline: False
+            on_size: pw_label.size = self.size
+        Button:
+            id: loginbutton
+            text: "Enter the DBA Tool !"
+            #on_press: self.text = check_password(un_input.text, pw_input.text)
+            on_press: app.root.login_set_global()
+            #LoginPage.login_callback()
+            #self.text = check_password(un_input.text, pw_input.text)

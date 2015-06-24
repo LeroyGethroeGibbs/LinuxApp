@@ -1,0 +1,274 @@
+RootHome:
+
+<RootHome>:
+    BoxLayout:
+        orientation: 'vertical'
+        StartUpForm
+<WidgetOne>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: None
+            height: sp(100)
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: e1
+                    min: -360.
+                    max: 360.
+
+                Label:
+                    text: 'angle_start = {}'.format(e1.value)
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: e2
+                    min: -360.
+                    max: 360.
+                    value: 360
+                Label:
+                    text: 'angle_end = {}'.format(e2.value)
+
+        BoxLayout:
+            size_hint_y: None
+            height: sp(100)
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: wm
+                    min: 0
+                    max: 2
+                    value: 1
+                Label:
+                    text: 'Width mult. = {}'.format(wm.value)
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: hm
+                    min: 0
+                    max: 2
+                    value: 1
+                Label:
+                    text: 'Height mult. = {}'.format(hm.value)
+            Button:
+                text: 'Reset ratios'
+                on_press: wm.value = 1; hm.value = 1
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Ellipse:
+                    pos: 100, 100
+                    size: 200 * wm.value, 201 * hm.value
+                    source: 'data/logo/kivy-icon-512.png'
+                    angle_start: e1.value
+                    angle_end: e2.value
+
+
+<ProjectReport@BoxLayout>:
+    report: ""
+    background_color: (1,0,0,1)
+    orientation: 'vertical'
+    Label:
+        pos_hint: {'center_x': .5,'center_y': .5}
+        size_hint: (None, None)
+        spacing: 20
+        text: root.report
+        id: label
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: None
+        height: '40dp'
+        Button:
+            text: 'Add Stuff'
+            on_press: app.root.show_radar()
+        TextInput:
+            text: ' '
+            id: idd
+            #auto_indent: True
+            multiline: True
+            background_color: [.3,0,0,.75]
+            on_text: root.report = idd.text
+
+
+<StartUpForm>:
+
+
+
+    Screen:
+        name: 'MenuScreen'
+        Label:
+            text: 'I am the menu screen'
+
+
+        BoxLayout:
+            spacing: 15
+            padding: [10,20,10,500]
+
+
+            Button:
+                text: 'Create Project'
+                id: create_project_press
+                on_press: root.current = 'NewProjectScreen'
+            Button:
+                text: ' Compare Projects'
+                id: compare_project_press
+            Button:
+                text: 'Help'
+                id: help_press
+                background_color: [1,0,0,1]
+                size_hint_x: 0.5
+                on_press: root.current = 'HelpScreen'
+
+    Screen:
+        name: 'DefaultScreen'
+        Button:
+            size_hint: (.5,.5)
+            text: 'Login'
+            on_press: app.root.trial()
+    Screen:
+        name: 'NewProjectScreen'
+        ActionBar:
+
+            pos_hint: {'top':1}
+            ActionView:
+
+                use_separator: True
+                ActionPrevious:
+                    title: 'Action Bar'
+                    with_previous: False
+                ActionOverflow:
+                ActionButton:
+                    text: 'Btn0'
+                    icon: 'atlas://data/images/defaulttheme/audio-volume-high'
+                ActionButton:
+                    text: 'Btn1'
+                    on_press: MyPageLayout
+                ActionButton:
+                    text: 'Main Menu'
+                    on_press: root.current = 'MenuScreen'
+                ActionButton:
+                    text: 'Btn3'
+                ActionGroup:
+                    text: 'Current Project'
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'New Alternative'
+                    ActionButton:
+                        text: 'Modify Alternatives'
+                    ActionButton:
+                        text: 'View Report'
+                        on_press: app.root.show_report()
+        TabbedPanel:
+            size_hint: .8, .8
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            do_default_tab: False
+
+            TabbedPanelItem:
+                text: 'first tab'
+                BoxLayout:
+                    orientation: 'vertical'
+                    GridLayout:
+                        cols:2
+                        padding:100
+
+                        Label:
+                            text: "username"
+                        TextInput:
+                            text: 'Please enter your name'
+                            id: user_nameinput
+                        Label:
+                            text: "password"
+                        TextInput:
+                            text: 'Remember, i am case sensitive!'
+                            id: user_passwordinput
+
+                    Button:
+                        text: 'Ok'
+                        size_hint_x: None
+                        size_hint_y:None
+                        height: '30dp'
+                        width: '100dp'
+
+            TabbedPanelItem:
+                text: 'tab2'
+                BoxLayout:
+                    size_hint_y: None
+                    height: '80dp'
+                    orientation: 'vertical'
+
+                    Label:
+                        text: 'First tab content area'
+                    TextInput:
+                        text: 'Default'
+                        multiline: True
+
+                        id: something
+                    TextInput:
+                        multiline: False
+                        id: number
+            TabbedPanelItem:
+                text: 'tab3'
+
+                Button:
+                    text: 'Save'
+                    on_press: app.save(something.text, number.text)
+
+
+    Screen:
+        name: 'HelpScreen'
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 50
+            BoxLayout:
+
+                Label:
+                    text: 'Do you need help??'
+                Button:
+                    text: 'Main Menu'
+                    on_press: root.current = 'MenuScreen'
+
+            BoxLayout:
+                size_hint_y: 4
+                orientation: 'vertical'
+                Label:
+                    text: 'Fun'
+                Carousel:
+
+                    WidgetTwo
+                    GridLayout:
+                        cols: 1
+                        Label:
+                            text: 'Functionality'
+                        Label:
+                            size_hint_y: None
+                            text_size: self.size
+                            text: 'Functionality refers to the capability of a system to fulfill its intended purpose. \n Issues that impact functionality can impact a systems capability to perform. The consequences of the issue not being \naddressed can include partial or complete loss of system function, \nimmediately or over an extended period of time.'
+
+                    GridLayout:
+                        cols: 1
+                        Label:
+                            text: 'Operating Environment'
+                        Label:
+                            text: 'Operating environment refers to the environment in which a system or component is required to perform. \nOperational environments that occur normally or in response to off-normal conditions, can stress a component or \nsystem and impact its performance in its intended use.'
+<WidgetOne>:
+<WidgetTwo>:
+    canvas:
+        Color:
+            rgb: (1,1,1)
+        Rectangle:
+            source: 'OpEnv.png'
+            size: self.width, self.height
+
+<MyPageLayout>:
+    Button:
+        font_size: 26
+        text: 'This is a very long description for the page 1'
+    Button:
+        font_size: 26
+        text: 'This is description for the page 2 not centered'
+    Button:
+        font_size: 26
+        text: 'This is description for the page 3 and centered'

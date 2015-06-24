@@ -9,31 +9,32 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
+from kivy.graphics.vertex_instructions import (Rectangle,
+                                               Ellipse,
+                                               Line)
+from kivy.graphics.context_instructions import Color
+
+from kivy.properties import ListProperty, ObjectProperty
+
+import random
 
 
 
-class TutorialApp(App): #name in title bar =everything before 'App'
+
+class ScatterTextWidget(BoxLayout):
+    text_colour = ListProperty([1,0,0,1])
+
+    def __init__(self, **kwargs):
+        super(ScatterTextWidget, self).__init__(**kwargs)
+
+
+    def change_label_colour(self, *args):
+        colour = [random.random() for i in xrange(3)] + [1]
+        self.text_colour = colour
+
+class BananaApp(App):
     def build(self):
-      b=BoxLayout(orientation='vertical')
-      t = TextInput(font_size=50,
-                    size_hint_y=None,
-                    height=200,
-                    text='default')
-      f = FloatLayout()
-      s=Scatter()
-      l=Label(text='default',
-                font_size=150)
+        return ScatterTextWidget()
 
-      t.bind(text=l.setter('text'))
-
-      f.add_widget(s)
-      s.add_widget(l)
-
-      b.add_widget(t)
-      b.add_widget(f)
-
-      return b
-
-
-if __name__=='__main__':
-    TutorialApp().run()
+if __name__ == '__main__':
+    BananaApp().run()

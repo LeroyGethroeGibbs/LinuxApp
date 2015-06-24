@@ -1,6 +1,14 @@
 #: import ListItemButton kivy.uix.listview.ListItemButton
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import Accordion kivy.uix.accordion.Accordion
+#: import AccordionItem kivy.uix.accordion.AccordionItem
+#: import ViewProjectFormTemplate Form1.ViewProjectFormTemplate
+#: import JsonStore kivy.storage.jsonstore.JsonStore
+#: import Form1 Form1
+#: import runTouchApp kivy.base.runTouchApp
 
+#:import datetime datetime
+#:import time time
 
 <MySlide@Slider>:
     bar_color: (0,0,0,0)
@@ -19,12 +27,10 @@
         font_size: 15
 
         color: [146.0/255, 238.0/255, 138.0/255, 255.0/255]
-    #on_touch_up: score_label.color =
 
 <OpenExistingProject>:
-#: import ViewProjectFormTemplate Form1.ViewProjectFormTemplate
-#: import JsonStore kivy.storage.jsonstore.JsonStore
-<TabbedPanelTemplate@TabbedPanelItem>:
+
+<TabbedPanelTemplate>:
     title_label: 'Funct'
     text: 'Functionality'
     id: yes
@@ -34,7 +40,6 @@
         padding: 30,0,30,10
         Label:
             text: 'Motor Mount Repair'
-            #font_size: 15
             color: (0,1,1,1)
             size_hint_y: .1
         Label:
@@ -44,7 +49,16 @@
             color: (.4,.6,1,1)
             italic: True
             size_hint_y: .15
+        Button:
 
+            #background_normal: 'question_mark.jpg'
+            text: ' ? '
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: .1,.1
+            pos: self.pos
+            border: 1,1,1,1
+            on_press: Poppy()
         GridLayout:
             cols: 2
             spacing: 30
@@ -118,8 +132,9 @@
             Button:
                 id: spit
                 text: 'spit'
-                on_press: yes.color= [0,1,0,1]; ViewProjectFormTemplate().show_screenthree()
-                #spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
+                on_press: yes.color= [0,1,0,1]; #Form1App().spit_store(yes.text, DR_F.text, DRR_F.text, DRIS_F.value, DRISR_F.text)
+
+
             Label:
                 id: spit_label
                 text: 'status'
@@ -128,7 +143,7 @@
 
     title_label: 'Title Label'
     text: 'Functionality'
-    id: yes
+    id: yes2
     font_size: 11
     BoxLayout:
         orientation: "vertical"
@@ -178,7 +193,7 @@
                         size_hint_y: .5
                     TextInput:
                         font_size: 12
-                        id: DR_F
+                        id: _DRCB
                         multiline: True
                         focus: True
                         size_hint_x: .60
@@ -198,12 +213,12 @@
                             halign: 'center'
 
                         TextInput:
-                            id: DRR_F
+                            id: _PDSA
                             multiline: True
                             font_size: 12
 
                         TextInput:
-                            id: DRR_F
+                            id: _PDSC
                             multiline: True
                             font_size: 12
 ## ## ## ## Step 2 – Prioritizing Design Requirements ## ## ## ##
@@ -254,9 +269,15 @@
                             text: 'Possible Design\n Solution Compliance Score'
 
                         MyCheckBox:
+
+                            id: _PDSCS
                         Label:
                             text:'Possible Design Solution Value'
-                        MyCheckBox:
+                        BoxLayout:
+                            Label:
+                                text: '#'
+                                id: _PDSV
+
         BoxLayout:
             size_hint_y: .3
             spacing: 20
@@ -273,18 +294,11 @@
                 Button:
 
                     text: 'Submit All'
+                   # on_press:root.form2_store(yes2.text, _DRCB.text, _PDSA.text, _PDSC.text, 4, _PDSV.text)
 
-#            Button:
-#                on_press: app.root.show_new_project_form()
-#            Button:
-#                id: spit
-#                text: 'spit'
-#                on_press: yes.color= [0,1,0,1]
-#                #spit_label.text = DR_F.text + '\n' + DRR_F.text + '\n'+ str(int(DRIS_F.value)) + '\n' +DRISR_F.text
-#            Label:
-#                id: spit_label
-#                text: 'status'
 <MyCheckBox>:
+    #on_checkbox_active: print 'fg'
+
     cols: 4
 
     Label:
@@ -298,20 +312,27 @@
     Label:
         text: '1'
     CheckBox:
-
+        group: 'val'
+#        active: root.on_checkbox_active
+       # on_active: app.root.abc(4)
+#        on_active: id._PDSV.text = 'four'
     CheckBox:
+        #on_active: app.root.abc(3)
+        group: 'val'
+#        on_active: root.ids._PDSV.text = 'three'
     CheckBox:
-
+        group: 'val'
+#        on_active: root.ids._PDSV.text = 'two'
     CheckBox:
-
+        group: 'val'
+#        on_active: root.ids._PDSV.text = 'one'
 
 <RootHome>:
 
         #DefineDesignRequirements
     LoginPage:
     #ViewProjectFormTemplate
-#
-#
+
 
 #:import DesignSolutionHelpContent Form1.DesignSolutionHelpContent
 
@@ -458,13 +479,10 @@
         Label:
             id: statuslogin
 <MainView>:
+    orientation: 'vertical'
     width: 800
 
-#: import Form1 Form1
-#: import runTouchApp kivy.base.runTouchApp
 
-#:import datetime datetime
-#:import time time
 
 <NewProjectForm>:
     BoxLayout:
@@ -501,16 +519,19 @@
 
             GridLayout:
                 cols: 2
-                size_hint: .8, .8
+                size_hint_x: .8
                 padding: 0,10
                 spacing: 5
                 Label:
                     text: 'Project Title'
                     id: _newprojectlabel
+
                 TextInput:
                     id: _newprojectid
                     multiline: False
                     text: 'Motor Mount Repair'
+                    size_hint_y: None
+                    height: 10
                     color: [0,0,0,.5]
                     on_text: root.ids._newprojectlabel.text = self.text
                     on_text_validate: root.check_user_exists(self.text); root.ids._projectcreationtime.text = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
@@ -519,20 +540,31 @@
                     text: 'Project ID Number'
                 TextInput:
                     id: _projectidnumber
+                    size_hint_y: None
+                    height: 20
                     multiline: False
+
                     active: False
+
+                Label:
+                    text: 'Project Created At'
+                TextInput:
+                    id: _projectcreatedat
+                Label:
+                    text: 'Project Creator'
+                TextInput:
+                    id: _projectcreator
+                  #  text: PERSON
+            BoxLayout:
+                orientation: 'vertical'
                 Button:
-                    on_press: root.project_set_global()
+                    text: 'Set Global Project Paramter'
+                    on_press: root.project_set_global(); root.ids._projectcreatedat.text = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                    size_hint_x: 1
                 Label:
                     id: _projectcreationtime
                     text: 'Today'
-                Button:
-                    text: ' I am ready to define \nDesign Requirements !'
-                    on_press: app.root.show_define_design_requirements()
 
-
-#: import Accordion kivy.uix.accordion.Accordion
-#: import AccordionItem kivy.uix.accordion.AccordionItem
 #
 [AccordionItemTitle@Label]:
     text: ctx.title
@@ -560,25 +592,6 @@
 
 <ViewProjectFormTemplate>:
     min_space: 25
-
-    AccordionItem:
-        title: 'Project Overview'
-
-        BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: 'dfgdfg'
-                size_hint: .1,.1
-#: import Knob kivy.garden.knob
-#: import ModernMenu kivy.garden.modernmenu
-    AccordionItem:
-        title: 'Design Requirements Summary'
-        FloatLayout:
-            canvas:
-                Color:
-                    rgba: .7,.2,.9,.8
-
-
 
 #: import DesignSolutionHelpContent Form1.DesignSolutionHelpContent
 #: import Popup kivy.uix.popup.Popup
@@ -616,11 +629,17 @@
                 size_hint_y: .2
                 valign: 'top'
                 text: 'Visualizing Design Solutions'
+            DatetimePicker
+
+#                density: 3
+#                TimeFormatCyclicRoulette:
+#                    density: 1
 
             Label:
                 size_hint_y: .05
                 color: [1,.6,.6,1]
-                text: '[ref=some]What is a Radar Chart ? [/ref]'
+                text: 'sdfsdf'
+#                text: '[ref=some]What is a Radar Chart ? [/ref]'
                 markup: True
                 on_ref_press:
                     import webbrowser
@@ -638,7 +657,7 @@
                     text: 'You need to define the design requirements'
                 Button:
                     text: 'Define Now'
-                    on_press: _sm.current = 'screentwo'
+                    on_press: _sm.current = 'screentwo';
             Screen:
                 id: _screentwo
                 name: 'screentwo'
@@ -646,7 +665,7 @@
                 Button:
                     size_hint_y: .05
                     text: 'Submit All'
-                    on_press: _sm.current = 'screenthree'
+                    on_press: _sm.current = 'screenthree';
 
             Screen:
                 name: 'screenthree'
@@ -659,7 +678,7 @@
                     Button:
                         text: 'Edit Design\n Requirements'
 
-
+#: import DatetimePicker kivy.garden.datetimepicker
 #: import Menubar kivy.garden.menubar
 <ProjectSolutionForm>:
 
@@ -675,6 +694,8 @@
 #:import rt Form1.RootHome
 <ViewProject>:
     ViewProjectFormTemplate
+
+
 
 
 <CustomDropDown@DropDown>:
@@ -698,7 +719,6 @@
     orientation: 'vertical'
     Words:
         size_hint_y: .95
-
     GridLayout:
         size_hint: 1,.5
         cols: 2
@@ -710,9 +730,9 @@
         Button:
 
             text: "Open Existing Project"
-            on_press: app.root.show_project_view()
-
+            on_press: app.root.show_project_view();
     MainView:
+
 
 
 <AB@ActionBar>:
